@@ -12,7 +12,7 @@
     <category citation-format="note"/>
     <category field="law"/>
     <summary>Juris-M style module for Federal Republic of Germany</summary>
-    <updated>2021-01-28T01:38:44+01:00</updated>
+    <updated>2021-02-04T08:04:46+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
     <law-module types="legal_case"/>
   </info>
@@ -28,17 +28,19 @@
   </macro>
 
   <macro name="juris-main">
+    <!-- debugging -->
     <choose>
       <if cite-form="1">
-        <text value="cite-form 1"/>
+        <text value="cite-form 1 "/>
       </if>
       <else-if cite-form="2">
-        <text value="cite-form 2"/>
+        <text value="cite-form 2 "/>
       </else-if>
       <else>
-        <text value="none"/>
+        <text value="no citeform "/>
       </else>
     </choose>
+    <!-- /debugging -->
     <choose>
       <if type="legal_case">
         <group delimiter=", ">
