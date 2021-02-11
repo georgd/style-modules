@@ -9,15 +9,18 @@
       <name>Frank Bennett</name>
       <email>bennett@nagoya-u.jp</email>
     </author>
+    <contributor>
+      <name>Georg Mayr-Duffner</name>
+      <email>g.duffner@gmail.com</email>
+    </contributor>
     <category citation-format="note"/>
     <category field="law"/>
     <summary>Juris-M style module for EU.INT, Court of Justice of the European Union</summary>
-    <updated>2013-01-26T22:06:38+00:00</updated>
+    <updated>2021-02-11T16:26:37+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
     <law-module types="legal_case"/>
   </info>
-  
-  
+
   <locale>
     <terms>
       <term name="paragraph" form="short">
@@ -27,7 +30,7 @@
       <term name="paragraph" form="static">[%s]</term>
     </terms>
   </locale>
-  
+
   <macro name="juris-pretitle">
     <group delimiter=" ">
       <choose>
@@ -41,11 +44,13 @@
       <number variable="number"/>
     </group>
   </macro>
-  
+
   <macro name="juris-title">
     <choose>
       <if type="legal_case">
+        <group parallel-first="title">
           <text variable="title"/>
+        </group>
       </if>
     </choose>
   </macro>
