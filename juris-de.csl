@@ -12,7 +12,7 @@
     <category citation-format="note"/>
     <category field="law"/>
     <summary>Juris-M style module for Federal Republic of Germany</summary>
-    <updated>2021-04-07T17:27:23+02:00</updated>
+    <updated>2021-04-07T17:30:32+02:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
     <law-module types="legal_case"/>
   </info>
@@ -49,12 +49,26 @@
   </macro>
 
   <macro name="juris-main">
+    <!-- debugging -->
+    <choose>
+      <if cite-form="1">
+        <text value="cite-form 1 "/>
+      </if>
+      <else-if cite-form="2">
+        <text value="cite-form 2 "/>
+      </else-if>
+      <else>
+        <text value="no citeform "/>
+      </else>
+    </choose>
+    <!-- /debugging -->
     <choose>
       <if type="legal_case">
         <group delimiter=", ">
           <choose>
             <if>
               <conditions match="all">
+                <condition cite-form="1" match="none"/>
                 <condition variable="page volume"/>
                 <condition variable="container-title archive" match="none"/>
               </conditions>
@@ -71,25 +85,33 @@
               </group>
             </if>
             <else>
-              <group no-repeat="authority">
-                <names variable="authority">
-                  <name/>
-                  <institution form="short"/>
-                </names>
-              </group>
               <choose>
-                <if>
-                  <conditions match="any">
-                    <condition variable="archive URL" match="any"/>
-                    <condition variable="container-title" match="none"/>
-                  </conditions>
-                  <group delimiter=" v. ">
-                    <text variable="genre"/>
-                    <group delimiter=" &#x2013; ">
-                      <date variable="issued" form="text"/>
-                      <number variable="number"/>
-                    </group>
+                <if cite-form="1" match="none">
+                  <group no-repeat="authority">
+                    <names variable="authority">
+                      <name/>
+                      <institution form="short"/>
+                    </names>
                   </group>
+                  <choose>
+                    <if>
+                      <conditions match="any">
+                        <condition cite-form="2" variable="archive URL" match="any"/>
+                        <condition variable="container-title" match="none"/>
+                      </conditions>
+                      <group delimiter=" v. ">
+                        <text variable="genre"/>
+                        <group delimiter=" &#x2013; ">
+                        <date variable="issued" form="text"/>
+                        <choose>
+                          <if cite-form="2" match="none">
+                            <number variable="number"/>
+                          </if>
+                        </choose>
+                        </group>
+                      </group>
+                    </if>
+                  </choose>
                 </if>
               </choose>
               <group delimiter=" ">
@@ -106,8 +128,16 @@
                   </else-if>
                   <else>
                     <text variable="container-title"/>
-                    <number variable="volume"/>
-                    <date variable="publication-date" date-parts="year" form="numeric" prefix="(" suffix=")"/>
+                    <choose>
+                      <if cite-form="2">
+                        <text variable="document-name"/>
+                        <number variable="document-number" prefix="Nr. "/>
+                      </if>
+                      <else>
+                        <number variable="volume"/>
+                        <date variable="publication-date" date-parts="year" form="numeric" prefix="(" suffix=")"/>
+                      </else>
+                    </choose>
                   </else>
                 </choose>
               </group>
@@ -150,6 +180,7 @@
             <if>
               <!-- Official reporter omitted -->
               <conditions match="all">
+                <condition cite-form="1" match="none"/>
                 <condition variable="page volume"/>
                 <condition variable="container-title archive" match="none"/>
               </conditions>
@@ -166,27 +197,35 @@
               </group>
             </if>
             <else>
-              <!-- Standard form -->
-              <group no-repeat="authority">
-                <names variable="authority">
-                  <name/>
-                  <institution form="short"/>
-                </names>
-              </group>
               <choose>
-                <if>
-                  <!-- Special reporter, online reporter or unpublished -->
-                  <conditions match="any">
-                    <condition variable="archive URL" match="any"/>
-                    <condition variable="container-title" match="none"/>
-                  </conditions>
-                  <group delimiter=" v. ">
-                    <text variable="genre"/>
-                    <group delimiter=" &#x2013; ">
-                      <date variable="issued" form="text"/>
-                      <number variable="number"/>
-                    </group>
+                <!-- Standard form -->
+                <if cite-form="1" match="none">
+                  <group no-repeat="authority">
+                    <names variable="authority">
+                      <name/>
+                      <institution form="short"/>
+                    </names>
                   </group>
+                  <choose>
+                    <if>
+                      <!-- Special reporter, online reporter or unpublished -->
+                      <conditions match="any">
+                        <condition cite-form="2" variable="archive URL" match="any"/>
+                        <condition variable="container-title" match="none"/>
+                      </conditions>
+                      <group delimiter=" v. ">
+                        <text variable="genre"/>
+                        <group delimiter=" &#x2013; ">
+                          <date variable="issued" form="text"/>
+                          <choose>
+                            <if cite-form="2" match="none">
+                              <number variable="number"/>
+                            </if>
+                          </choose>
+                        </group>
+                      </group>
+                    </if>
+                  </choose>
                 </if>
               </choose>
               <group delimiter=" ">
@@ -203,8 +242,16 @@
                   </else-if>
                   <else>
                     <text variable="container-title"/>
-                    <number variable="volume"/>
-                    <date variable="publication-date" date-parts="year" form="numeric" prefix="(" suffix=")"/>
+                    <choose>
+                      <if cite-form="2">
+                        <text variable="document-name"/>
+                        <number variable="document-number" prefix="Nr. "/>
+                      </if>
+                      <else>
+                        <number variable="volume"/>
+                        <date variable="publication-date" date-parts="year" form="numeric" prefix="(" suffix=")"/>
+                      </else>
+                    </choose>
                   </else>
                 </choose>
               </group>
