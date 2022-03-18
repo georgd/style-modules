@@ -12,9 +12,9 @@
     <category citation-format="note"/>
     <category field="law"/>
     <summary>Juris-M style module for Federal Republic of Germany</summary>
-    <updated>2021-08-20T08:40:45+02:00</updated>
+    <updated>2022-03-18T08:46:14+01:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
-    <law-module types="legal_case legislation regulation"/>
+    <law-module types="bill legal_case legislation regulation"/>
   </info>
   <locale xmlns="http://purl.org/net/xbiblio/csl" xml:lang="de">
     <court-class name="a1" country="de" courts="bag"/>
@@ -146,6 +146,19 @@
           <text variable="references" prefix="idF "/>
         </group>
       </if>
+      <else-if type="bill">
+        <group delimiter=", ">
+          <text variable="title"/>
+          <group delimiter=" ">
+            <text variable="container-title" form="short"/>
+            <group delimiter="/">
+              <number variable="chapter-number"/>
+              <number variable="number"/>
+            </group>
+          </group>
+          <number variable="page"/>
+        </group>
+      </else-if>
       <else-if type="legal_case">
         <choose>
           <if variable="container-title archive URL page volume" match="none">
@@ -250,6 +263,15 @@
           </if>
         </choose>
       </if>
+      <else-if type="bill">
+        <group delimiter=" ">
+          <text variable="container-title" form="short"/>
+          <group delimiter="/">
+            <number variable="chapter-number"/>
+            <number variable="number"/>
+          </group>
+        </group>
+      </else-if>
       <else-if type="legislation regulation">
         <group delimiter=" ">
           <choose>
